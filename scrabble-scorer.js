@@ -36,9 +36,24 @@ function initialPrompt() { //prompts the user to enter a word for scoring
    console.log("Let's play some scrabble! Enter a word:");
 };
 
-let simpleScorer;
+let simpleScorer = function (word) {
+   return word.length;
+};
 
-let vowelBonusScorer;
+let vowelBonusScorer = function (word) {
+   let score = 0;
+   const vowels = "aeiou";
+
+   for (let i = 0; i < word.length; i++) {
+      if (vowels.includes(word[i].toLowerCase())) {
+         score += 3;
+      } else {
+         score += 1;
+      }
+   }
+   
+   return score;
+};
 
 let scrabbleScorer;
 
@@ -46,7 +61,18 @@ const scoringAlgorithms = [];
 
 function scorerPrompt() {}
 
-function transform() {};
+function transform(oldPointStructure) {
+   let newPointStructure = {};
+
+   for (const pointValue in oldPointStructure) {
+      for (let i = 0; i < oldPointStructure[pointValue].length; i++) {
+         let letter = oldPointStructure[pointValue][i].toLowerCase();
+         newPointStructure[letter] = Number(pointValue);
+      }
+   }
+
+   return newPointStructure;
+}
 
 let newPointStructure;
 
