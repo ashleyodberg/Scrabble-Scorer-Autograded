@@ -55,9 +55,35 @@ let vowelBonusScorer = function (word) {
    return score;
 };
 
-let scrabbleScorer;
+let scrabbleScorer = function (word, newPointStructure) {
+   let score = 0;
+   word = word.toLowerCase();
 
-const scoringAlgorithms = [];
+   for (let i = 0; i < word.length; i++) {
+      const letter = word[i];
+      score += newPointStructure[letter] || 0;
+   }
+
+   return score;
+};
+
+const scoringAlgorithms = [
+   {
+      name: 'Simple Score',
+      description: 'Each letter is worth 1 point.',
+      scorerFunction: simpleScorer
+   },
+   {
+      name: 'Bonus Vowels',
+      description: 'Vowels are 3 pts, consonants are 1 pt.',
+      scorerFunction: vowelBonusScorer
+   },
+   {
+      name: 'Scrabble', 
+      description: 'Uses scrabble point system.',
+      scorerFunction: scrabbleScorer
+   }
+];
 
 function scorerPrompt() {}
 
@@ -74,7 +100,11 @@ function transform(oldPointStructure) {
    return newPointStructure;
 }
 
+//newPointStructure = transform(oldPointStructure); put here and got an error
+
 let newPointStructure;
+
+newPointStructure = transform(oldPointStructure); //tried afte newPointStructure has been declared first
 
 function runProgram() { //runs the initial prompt when the program starts
    initialPrompt();
