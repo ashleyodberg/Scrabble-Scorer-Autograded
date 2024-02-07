@@ -33,7 +33,7 @@ function oldScrabbleScorer(word) {
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() { //prompts the user to enter a word for scoring
-   console.log("Let's play some scrabble! Enter a word:");
+   console.log("Let's play some Scrabble!");
 };
 
 let simpleScorer = function (word) {
@@ -85,7 +85,15 @@ const scoringAlgorithms = [
    }
 ];
 
-function scorerPrompt() {}
+function scorerPrompt() {
+   console.log("\nWhich scoring algorithm would you like to use?");
+   console.log("0 - Simple: One point per character");
+   console.log("1 - Vowel Bonus: Vowels are worth 3 points");
+   console.log("2 - Scrabble: Uses scrabble point system.");
+
+   const selectedAlgorithm = input.question("Enter 0, 1, or 2: ");
+   return parseInt(selectedAlgorithm);
+}
 
 function transform(oldPointStructure) {
    let newPointStructure = {};
@@ -109,8 +117,11 @@ newPointStructure = transform(oldPointStructure); //tried afte newPointStructure
 function runProgram() { //runs the initial prompt when the program starts
    initialPrompt();
    const userWord = input.question("Enter a word: ");
-   const score = oldScrabbleScorer(userWord);
-   console.log(score);
+   const selectedAlgorithm = scorerPrompt();
+   const score = scoringAlgorithms[selectedAlgorithm].scorerFunction(userWord, newPointStructure);
+   //const score = oldScrabbleScorer(userWord);
+   console.log(`Score for ${userWord}': ${score}`);
+   //console.log(score);
 }
 
 // Don't write any code below this line //
